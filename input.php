@@ -114,7 +114,7 @@
 
 			$('button[type="submit"]').on("click", function(e){
 				$("form").each(function(){
-					console.log($(this).serialize());
+					//console.log($(this).serialize());
 					$.ajax({
 						type: "POST",
 						url: "test.php",
@@ -125,8 +125,8 @@
 								console.log("success");
 							else if (data == 0)
 								console.log("failure");
-							else if (data==2)
-								console.log("error");
+							else
+								console.log(data);
 						}
 					});
 				});

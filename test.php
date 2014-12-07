@@ -3,8 +3,9 @@ $supplier_name = $_POST['supplier_name'];
 $name = $_POST['name'];
 $briefy = $_POST['briefy'];
 $category = $_POST['category'];
-$explanation = = $_POST['explanation'];
+$explanation = $_POST['explanation'];
 
+var_dump($supplier_name);
 try{
 	$db = new PDO('mysql:host=localhost;dbname=teamabc;charset=utf8', 'root', 'toor');
 	$stmt = $db->prepare('INSERT INTO content values (0, :supplier_name, :name, :briefy, :category, :explanation)');
@@ -18,7 +19,7 @@ try{
 }
 catch(PDOException $e)
 {
-	echo 2;
+	echo $e;
 	die();
 }
 ?>

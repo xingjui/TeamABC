@@ -1,126 +1,134 @@
 <!doctype html>
-<html lang="en"><head>
-<meta charset="UTF-8">
-<link rel="import" href="core.html">
-<title>Registration</title>
-<style>
-.centering {
-	float:none;
-	margin:0 auto;
-}
-</style>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Registration</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+	<style>
+		.centering {
+			float:none;
+			margin:0 auto;
+		}
+
+		body {
+		  padding-top: 70px;
+		}
+
+		input[type=checkbox]
+		{
+		  /* Double-sized Checkboxes */
+		  -ms-transform: scale(1.5); /* IE */
+		  -moz-transform: scale(1.5); /* FF */
+		  -webkit-transform: scale(1.5); /* Safari and Chrome */
+		  -o-transform: scale(1.5); /* Opera */
+		}
+	</style>
+</head>
+
 <body>
-	<div class="container container-fluid">
-		<!-- Fixed navbar -->
-		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand logo sprite-46" style="margin: 1px 10px 0 5px;" href="http://tuition.sys/login"></a>
-				</div>
-				<!-- stupid menu wont align center unless use inline css -->
-				<div class="navbar-collapse collapse text-center" style="text-align:center;">
-					<ul class="nav navbar-nav" id="navbullet">
-						<li class="active"><a href="http://tuition.sys/student/create">Registration</a></li>
-					</ul>
-				</div><!--/.nav-collapse -->
+<div class="container container-fluid">
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand logo sprite-46" style="margin: 1px 10px 0 5px;" href="#"></a>
 			</div>
+			<!-- stupid menu wont align center unless use inline css -->
+			<div class="navbar-collapse collapse text-center" style="text-align:center;">
+				<ul class="nav navbar-nav" id="navbullet">
+					<li class="active"><a href="#">Registration</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
 		</div>
+	</div>
 		
 		
 
-		<form method="POST" action="" accept-charset="UTF-8" role="form">
+	<form method="POST" action="" accept-charset="UTF-8" role="form">
 
-			<div style="min-width:400px; max-width:650px;" class="centering">
-				<div class="panel panel-default">
-					<!-- Default panel contents -->
-					<div class="panel-heading"><strong>Registration</strong></div>
-<!-- 	  <div class="panel-body">
-	    <p>	
-	    </p>
-	</div> -->
+		<div style="min-width:400px; max-width:650px;" class="centering">
+			<div class="panel panel-default">
+				<!-- Default panel contents -->
+				<div class="panel-heading"><strong>Registration</strong></div>
 
-	<!-- Table -->
-	<table class="table table-hover" id="form1">
-		<tbody>
-			<tr class="reglabel">
-				<td>Name(EN)<span class="required">*</span></td>
-				<td>
-					<input class="form-control" required="required" name="name_en" type="text" style="cursor: auto; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==); background-attachment: scroll; background-position: 100% 50%; background-repeat: no-repeat;">
-				</td>
-			</tr>
-			<tr class="reglabel">
-				<td>Name(CN)<span class="required">*</span></td>
-				<td>
-					<input class="form-control" required="required" name="name_cn" type="text">
-				</td>
-			</tr>
-			<tr class="reglabel">
-				<td>Sex</td>
-				<td>
-					<label for="sex-male">Male</label>
-					<input id="sex-male" style="margin-right:80px;" checked="checked" name="sex" type="radio" value="male">
-					<label for="sex-female">Female</label>
-					<input id="sex-female" name="sex" type="radio" value="female">
-				</td>
-			</tr>
-			<tr class="reglabel">
-				<td>Address<span class="required"> *</span></td>
-				<td>
-					<textarea class="form-control" required="required" rows="3" name="address" cols="50"></textarea>
-				</td>
-			</tr>
-			<tr class="reglabel">
-				<td>School<span class="required"> *</span></td>
-				<td>
-					<input class="form-control" required="required" name="school" type="text">
-				</td>
-			</tr>
-			<tr class="reglabel">
-				<td>Contact</td>
-				<td class="form-inline">
-					<label for="home_no">Home</label>
-					<input class="form-control" id="home_no" style="margin-right:15px;" name="home_no" type="text">
-					<label for="handphone">HP</label>
-					<input class="form-control" id="handphone" name="handphone" type="text">
-				</td>
-			</tr>
-
-			<tr class="reglabel">
-				<td>Remark</td>
-				<td>
-					<textarea class="form-control" rows="3" name="other" cols="50"></textarea>
-				</td>
-			</tr>
-			<tr>
-			</tr>
-		</tbody></table>
-	</div>
-	<button style="margin-top:-10px; margin-bottom:10px; width:400px;" class="btn btn-lg btn-primary center-block" type="submit">Add</button>
+				<!-- Table -->
+				<table class="table table-hover" id="form1">
+					<tbody>
+						<tr class="reglabel">
+							<td>Name</td>
+							<td>
+								<input class="form-control" required="required" name="name_en" type="text">
+							</td>
+						</tr>
+						<tr class="reglabel">
+							<td>Address</td>
+							<td>
+								<input class="form-control" required="required" name="name_en" type="text">
+							</td>
+						</tr>
+						<tr class="reglabel">
+							<td>Sex</td>
+							<td>
+								<label for="sex-male">Male</label>
+								<input id="sex-male" style="margin-right:80px;" checked="checked" name="sex" type="radio" value="male">
+								<label for="sex-female">Female</label>
+								<input id="sex-female" name="sex" type="radio" value="female">
+							</td>
+						</tr>
+						<tr class="reglabel">
+							<td>Contact</td>
+							<td class="form-inline">
+								<label for="home_no">Home</label>
+								<input class="form-control" id="home_no" style="margin-right:15px;" name="home_no" type="text">
+								<label for="handphone">HP</label>
+								<input class="form-control" id="handphone" name="handphone" type="text">
+							</td>
+						</tr>
+						<tr class="reglabel">
+							<td>Remark</td>
+							<td>
+								<textarea class="form-control" rows="3" name="other" cols="50"></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td>TOS</td>
+							<td><input type="checkbox" style="width"></input></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<button style="margin-top:-10px; margin-bottom:10px; width:400px;" class="btn btn-lg btn-primary center-block" type="submit">Add</button>
 
 
-	<!-- password box -->
-	<div class="modal fade" id="setting-login" tabindex="-1" role="dialog" aria-labelledby="setting-login" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-					<h4 class="modal-title" id="myModalLabel">Please enter the password</h4>
-				</div>
-				<div class="modal-body">
+		<!-- Modal box -->
+		<div class="modal fade" id="setting-login" tabindex="-1" role="dialog" aria-labelledby="setting-login" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title" id="myModalLabel">Please enter the password</h4>
+					</div>
+					<div class="modal-body">
 
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
+	</form> <!-- /container -->
 </div>
-</form> <!-- /container -->
 
 <script>
 

@@ -5,11 +5,14 @@
 	<title>Input</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script src="http://joaopereirawd.github.io/fakeLoader.js/js/fakeLoader.js"></script>
+	<link rel="stylesheet" href="fakeLoader.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 </head>
 
 <body>
+	<div id="fakeLoader" style="display:none;"></div>
 	<div id="top-nav">
 		<ul class="nav nav-tabs">
 			<li class="active">
@@ -103,16 +106,22 @@
 	</div>
 
 	<div id="nothing" style="display:none;"></div>
-
 	<script type="text/javascript">
 		var i = 0;
 		$(document).ready(function(){
+			$("#fakeLoader").fakeLoader({
+				timeToHide:3000, //Time in milliseconds for fakeLoader disappear
+				spinner:"spinner1",//Options: 'spinner1', 'spinner2', 'spinner3', 'spinner4', 'spinner5', 'spinner6', 'spinner7'
+				bgColor:"rgba(180,180,180,0.7)" //Hex, RGB or RGBA colors
+			});
+
 			$('ul li').click(function(){
 				$('ul li').removeClass('active');
 				$(this).addClass('active');
 			});
 
 			$('button[type="submit"]').on("click", function(e){
+				$('#fakeLoader').css("display", "block");
 				$("form").each(function(){
 					//console.log($(this).serialize());
 					$.ajax({
@@ -132,7 +141,7 @@
 				});
 				e.preventDefault();
 			});
-			
+			$('#fakeLoader').css("display", "none");
 		});
 
 		function Add(){

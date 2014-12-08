@@ -72,19 +72,24 @@
 			<button class="btn" type="submit">Submit</button>
 		</div>
 		<div style="float:right;width:28%;">
+			<div id="tags" class="well">
+			</div>
 			<div id="content-nav-right-top" class="well">
 				<ul class="nav nav-pills nav-stacked">
 					<li>
-						<a href="#">Term Of Service</a>
+						<a href="#" onclick="show('common')">Common</a>
 					</li>
 					<li>
-						<a href="#">End User License Agreement</a>
+						<a href="#" onclick="show('tos')">Term Of Service</a>
 					</li>
 					<li>
-						<a href="#">Data Privacy</a>
+						<a href="#" onclick="show('eula')">End User License Agreement</a>
 					</li>
 					<li>
-						<a href="#">Copyright</a>
+						<a href="#" onclick="show('dp')">Data Privacy</a>
+					</li>
+					<li>
+						<a href="#" onclick="show('cr')">Copyright</a>
 					</li>
 				</ul>
 			</div>
@@ -116,6 +121,7 @@
 	<script type="text/javascript">
 		var i = 0;
 		$(document).ready(function(){
+
 			$('ul li').click(function(){
 				$('ul li').removeClass('active');
 				$(this).addClass('active');
@@ -171,7 +177,40 @@ $('button[name=getset]').on("click", function(e){
 				});
 				e.preventDefault();
 			});
+
+$.ajax({
+	type: "POST",
+	url: "gettag.php",
+	success: function(data){
+		data=JSON.parse(data);
+
+		$.each(data, function(i,v){
+			$('#tags').append('<button class="btn btn-link" onclick="getValue(\''+v['supplier_name']+'\')" >'+v['supplier_name']+'</button>&nbsp;');
+		});
+	}
 });
+});
+
+function show(category){
+	switch(category){
+		case 'common':
+		break;
+		case 'tos':
+		break;
+		case 'eula':
+		break;
+		case 'dp':
+		break;
+		case 'cr':
+		break;
+	}
+}
+
+function getValue(appname){
+	$('#formC').html('');
+	$('input[name=appname]').val(appname);
+	$('button[name=getset').trigger('click');
+}
 
 function Add(){
 	$('#formC').append(
@@ -215,53 +254,53 @@ function Add(){
 
 function AddWithVal(name, briefy, category, explanation){
 	var htmlString = 
-		'<form method="post" action="#">'+
-		'<table class="table">'+
-		'<tr>'+
-		'<th>Name</th>'+
-		'<th>'+
-		'<input name="name" type="text" class="form-control" value="'+ name +'" />'+
-		'</th>'+
-		'</tr>'+
-		'<tr>'+
-		'<th>Briefy</th>'+
-		'<th>'+
-		'<input name="briefy" type="text" class="form-control" value="'+ briefy +'" />'+
-		'</th>'+
-		'</tr>'+
-		'<tr>'+
-		'<th>Category</th>'+
-		'<th>'+
-		'<select class="form-control" name="category">'+
-		'<option value="common"'; 
-		htmlString += (category=='common')? 'selected':'';
-		htmlString += '>Common</option>'+
-		'<option value="tos"'; 
-		htmlString += (category=='tos')? 'selected': ''; 
-		htmlString +='>Term of Service</option>'+
-		'<option value="eula"'; 
-		htmlString += (category=='eula')? 'selected': ''; 
-		htmlString +='>End User License Agreement</option>'+
-		'<option value="dp"'; 
-		htmlString += (category=='dp')? 'selected': ''; 
-		htmlString +='>Data Privacy</option>'+
-		'<option value="copyright"'; 
-		htmlString += (category=='copyright')? 'selected': ''; 
-		htmlString += '>Copyright</option>'+
-		'</select>'+
-		'</th>'+
-		'</tr>'+
-		'<tr>'+
-		'<th>Explanation</th>'+
-		'<th>'+
-		'<textarea name="explanation" rows="5" class="form-control" >'+ explanation +'</textarea>'+
-		'</th>'+
-		'</tr>'+
-		'</table>'+
-		'<input type="hidden" name="supplier_name" value="" />'+
-		'</form>';
-		$('#formC').append(htmlString);
-	}
+	'<form method="post" action="#">'+
+	'<table class="table">'+
+	'<tr>'+
+	'<th>Name</th>'+
+	'<th>'+
+	'<input name="name" type="text" class="form-control" value="'+ name +'" />'+
+	'</th>'+
+	'</tr>'+
+	'<tr>'+
+	'<th>Briefy</th>'+
+	'<th>'+
+	'<input name="briefy" type="text" class="form-control" value="'+ briefy +'" />'+
+	'</th>'+
+	'</tr>'+
+	'<tr>'+
+	'<th>Category</th>'+
+	'<th>'+
+	'<select class="form-control" name="category">'+
+	'<option value="common"'; 
+	htmlString += (category=='common')? 'selected':'';
+	htmlString += '>Common</option>'+
+	'<option value="tos"'; 
+	htmlString += (category=='tos')? 'selected': ''; 
+	htmlString +='>Term of Service</option>'+
+	'<option value="eula"'; 
+	htmlString += (category=='eula')? 'selected': ''; 
+	htmlString +='>End User License Agreement</option>'+
+	'<option value="dp"'; 
+	htmlString += (category=='dp')? 'selected': ''; 
+	htmlString +='>Data Privacy</option>'+
+	'<option value="copyright"'; 
+	htmlString += (category=='copyright')? 'selected': ''; 
+	htmlString += '>Copyright</option>'+
+	'</select>'+
+	'</th>'+
+	'</tr>'+
+	'<tr>'+
+	'<th>Explanation</th>'+
+	'<th>'+
+	'<textarea name="explanation" rows="5" class="form-control" >'+ explanation +'</textarea>'+
+	'</th>'+
+	'</tr>'+
+	'</table>'+
+	'<input type="hidden" name="supplier_name" value="" />'+
+	'</form>';
+	$('#formC').append(htmlString);
+}
 </script>
 </body>
 

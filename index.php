@@ -104,6 +104,12 @@
 								<textarea class="form-control" rows="3" name="other" cols="50"></textarea>
 							</td>
 						</tr>
+						<tr class="reglabel">
+							<td>Supplier</td>
+							<td>
+								<select id="supplier-opt" class="form-control" autofocus="autofocus" required="required" name="standard"></select>
+							</td>
+						</tr>
 						<tr>
 							<td>TOS</td>
 							<td><label for="tos">Agree</label><input id="tos" type="checkbox" style="width"></input></td>
@@ -131,7 +137,7 @@
 								<article class="starwars">
 								  <audio preload="auto">
 								      <?php
-								        $data = array('It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire. During the battle, Rebel spies managed to steal secret plans to the Empire\'s ultimate weapon, the DEATH STAR, an armored space station with enough power to destroy an entire planet. Pursued by the Empire\'s sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plan that can save her people and restore freedom to the galaxy....');
+								        $data = array('Common Terms: You should read DMCA Copyright Policy and the Privacy Policy pages. If you don’t agree to these terms, please exit; Eligibility & Registration: You must be at least 13 years old to use our service. By registering with your information, you are guaranteeing the services offered are solely for your use and not a third party – and that all of the information is accurate adn updated; Confidentiality: We are not sharing confidential information with any of our customers;');
 								        $data = trim(http_build_query($data));
 								        $data = str_replace("0=","",$data);
 								        $data = 'http://tts-api.com/tts.mp3?return_url=1&q='.$data;
@@ -146,34 +152,18 @@
 								  <div class="animation">
 
 								  <section class="titles">
-								    <div spellcheck="false">  
-								      <p>
-								        It is a period of civil war.
-								        Rebel spaceships, striking
-								        from a hidden base, have won
-								        their first victory against
-								        the evil Galactic Empire.
-								      </p>
+								      <div id="tos-brief">
+											<p><strong>Common Terms</strong><br />
+											You should read DMCA Copyright Policy and the Privacy Policy pages. If you don’t agree to these terms, please exit.</p>
 
-								      <p>
-								        During the battle, Rebel
-								        spies managed to steal secret
-								        plans to the Empire's
-								        ultimate weapon, the DEATH
-								        STAR, an armored space
-								        station with enough power to
-								        destroy an entire planet.
-								      </p>
+											<p><strong>Eligibility & Registration</strong><br />
+											 You must be at least 13 years old to use our service. By registering with your information, you are guaranteeing the services offered are solely for your use and not a third party – and that all of the information is accurate adn updated.</p>
 
-								      <p>
-								        Pursued by the Empire's
-								        sinister agents, Princess
-								        Leia races home aboard her
-								        starship, custodian of the
-								        stolen plan that can save
-								        her people and restore
-								        freedom to the galaxy....
-								      </p>
+											<p><strong>Confidentiality</strong><br />
+											We are not sharing confidential information with any of our customers.</p>
+
+								      </div>
+								      <div style="display:none;" id="tos-detail">							      
 								      </div>
 								  </section>
 
@@ -186,7 +176,7 @@
 						<span style="margin-top:-50px;" class="glyphicon glyphicon-pause" aria-hidden="true"></span>
 						<code>Text to speech</code>
 						<div style="margin:30px 10px 10px 10px; height:43px; background:url('img/road.jpg');"></div>
-						<div style="background:url('img/run.gif') no-repeat; margin:-65px 0px 0px 10px; height:50px;"></div>
+						<div id="runner" style="background:url('img/run.gif') no-repeat; margin:-65px 0px 0px 10px; height:50px;"></div>
 						<div style="background:url('img/presents.gif') no-repeat; margin-top:-55px; margin-right:10px; width:51px; height:60px; float:right;"></div>
 					</div>
 				</div>
@@ -200,14 +190,75 @@
 	<script src="js/index.js"></script>
 
 <script>
+	function pull_tos(){
+		$.ajax({
+				type: "post",
+				url: "getdata.php",
+				cache: false,
+				data:{'appname':$('#supplier-opt option:selected').val()},
+				success: function(data)
+				{
+					data = JSON.parse(data);
+					var brief_data = '';
+					var detail_data = '';
+					$.each(data, function(index, val){
+						brief_data += "<p><strong>"+val['name']+"</strong><br />"+val['briefy']+"</p>";
+						detail_data += "<p><strong>"+val['name']+"</strong><br />"+val['explanation']+"</p>";
+					});
+
+					console.log(brief_data);
+					$("#tos-brief").html(brief_data);
+					$("#tos-detail").html(detail_data);
+				}
+		});
+	}
+
+	$(document).ready(function(){
+		$.ajax({
+				type: "get",
+				url: "gettag.php",
+				cache: false,
+				async: false,
+				success: function(data)
+				{
+					data = JSON.parse(data);
+					$.each(data, function(index, val){
+						$('#supplier-opt').append('<option value="'+val['supplier_name']+'">'+val['supplier_name']+'</option>');
+					});
+				}
+		});
+		// setTimeout(function(){pull_tos();},2000);
+	});
+
+
+	// $('#supplier-opt').on('change',function(){
+	// 	pull_tos();
+	// });
+
 	$('#tos').on('click',function(){
 		if($('#tos').prop('checked') === true)
 			$('#tos-content').modal('show');
 	});
 
+	var length = 10;
+
+	function runner_plus(){
+		length += 4;
+		$('#runner').css('margin-left',length+'px');
+	}
+
+	var running_state;
+
+	function runtogift(){
+		running_state = setInterval(function(){ runner_plus(); }, 250);
+		setTimeout(function(){clearInterval(running_state)},32000);
+	}
+
 	$('#tos-content').on('shown.bs.modal', function (e) {
 	  $('.start').click();
-	})
+	  runtogift();
+	});
+
 </script>
 </body>
 </html>

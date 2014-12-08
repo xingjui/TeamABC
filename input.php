@@ -23,7 +23,30 @@
 			</li>
 		</ul>
 	</div> -->
-	<div id="insert" style="display:block;width:80%;margin-left:auto;margin-right:auto;margin-top:10px;">
+
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand logo sprite-46" style="margin: 1px 10px 0 5px;" href="#"></a>
+			</div>
+			<!-- stupid menu wont align center unless use inline css -->
+			<div class="navbar-collapse collapse text-center" style="text-align:center;">
+				<ul class="nav navbar-nav" id="navbullet">
+					<li class=""><a href="index.php">Registration</a></li>
+					<li class="active"><a href="#">Backend</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div>
+
+	<div id="insert" style="display:block;width:80%;margin-left:auto;margin-right:auto;margin-top:80px;">
 		<div id="content" class="well" style="float:left;width:70%;">
 			<div>
 				Application : 

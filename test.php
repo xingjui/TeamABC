@@ -1,4 +1,5 @@
 <?php
+$id = $_POST['id'];
 $supplier_name = $_POST['supplier_name'];
 $name = $_POST['name'];
 $briefy = $_POST['briefy'];

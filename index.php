@@ -163,7 +163,8 @@
 											We are not sharing confidential information with any of our customers.</p>
 
 								      </div>
-								      <div style="display:none;" id="tos-detail">							      
+								      <div style="display:none;" id="tos-detail">
+								      		<h1 style="color:#ffffff;">Voucher lol</h1>
 								      </div>
 								  </section>
 
@@ -253,12 +254,16 @@
 		running_state = setInterval(function(){ runner_plus(); }, 250);
 		setTimeout(function(){
 			clearInterval(running_state);
-			
+			$('#tos-brief').css('display','none');
+			$('#tos-detail').css('display','block');
 		},32000);
 	}
 
 	$('#tos-content').on('shown.bs.modal', function (e) {
 	  $('.start').click();
+	  length = 10;
+	  $('#tos-brief').css('display','block');
+	  $('#tos-detail').css('display','none');
 	  runtogift();
 	});
 

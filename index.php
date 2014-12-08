@@ -112,7 +112,7 @@
 						</tr>
 						<tr>
 							<td>TOS</td>
-							<td><label for="tos">Agree</label><input id="tos" type="checkbox" style="width"></input></td>
+							<td><label for="tos">Agree</label><input id="tos" type="checkbox" style="width"></input><code> <-- Click</code></td>
 						</tr>
 					</tbody>
 				</table>
@@ -251,7 +251,10 @@
 
 	function runtogift(){
 		running_state = setInterval(function(){ runner_plus(); }, 250);
-		setTimeout(function(){clearInterval(running_state)},32000);
+		setTimeout(function(){
+			clearInterval(running_state);
+			
+		},32000);
 	}
 
 	$('#tos-content').on('shown.bs.modal', function (e) {

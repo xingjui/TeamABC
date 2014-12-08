@@ -12,8 +12,8 @@
 </head>
 
 <body>
-	<div id="fakeLoader" style="display:none;"></div>
-	<div id="top-nav">
+	<div id="fakeLoader"></div>
+	<!-- <div id="top-nav">
 		<ul class="nav nav-tabs">
 			<li class="active">
 				<a href="#">Insert</a>
@@ -22,11 +22,17 @@
 				<a href="#">Nothing</a>
 			</li>
 		</ul>
-	</div>
+	</div> -->
 	<div id="insert" style="display:block;width:80%;margin-left:auto;margin-right:auto;margin-top:10px;">
 		<div id="content" class="well" style="float:left;width:70%;">
+			<div>
+				Application : 
+				<input name="appname" type="text" placeholder="" />
+				<button class="btn-info" name="getset">Get/Set</button>
+				<br /><br />
+			</div>
 			<div id="formC">
-				<form method="post" action="#">
+				<!-- <form method="post" action="#">
 					<table class="table">
 						<tr>
 							<th>Name</th>
@@ -60,7 +66,7 @@
 						</tr>
 					</table>
 					<input type="hidden" value="do" name="supplier_name" />
-				</form>
+				</form> -->
 			</div>
 			<button class="btn" onclick="Add()">Add</button>
 			<button class="btn" type="submit">Submit</button>
@@ -106,22 +112,25 @@
 	</div>
 
 	<div id="nothing" style="display:none;"></div>
+
 	<script type="text/javascript">
 		var i = 0;
 		$(document).ready(function(){
-			$("#fakeLoader").fakeLoader({
-				timeToHide:3000, //Time in milliseconds for fakeLoader disappear
-				spinner:"spinner1",//Options: 'spinner1', 'spinner2', 'spinner3', 'spinner4', 'spinner5', 'spinner6', 'spinner7'
-				bgColor:"rgba(180,180,180,0.7)" //Hex, RGB or RGBA colors
-			});
-
 			$('ul li').click(function(){
 				$('ul li').removeClass('active');
 				$(this).addClass('active');
 			});
 
 			$('button[type="submit"]').on("click", function(e){
-				$('#fakeLoader').css("display", "block");
+				$('input[name=supplier_name]').val($('input[name=appname]').val());
+				//console.log($('input[name=supplier_name]').val());
+
+				$("#fakeLoader").fakeLoader({
+					timeToHide:2000, //Time in milliseconds for fakeLoader disappear
+					spinner:"spinner1",//Options: 'spinner1', 'spinner2', 'spinner3', 'spinner4', 'spinner5', 'spinner6', 'spinner7'
+					bgColor:"rgba(180,180,180,0.7)" //Hex, RGB or RGBA colors
+				});
+
 				$("form").each(function(){
 					//console.log($(this).serialize());
 					$.ajax({
@@ -131,76 +140,129 @@
 						data: $(this).serialize(),
 						success: function(data){
 							if(data == 1)
-								console.log("success");
+								setTimeout(function(){alert("Data saved!");},2000);
 							else if (data == 0)
-								console.log("failure");
-							else
+								setTimeout(function(){alert("Data not saved!");},2000);
+							else{
 								console.log(data);
+								setTimeout(function(){alert("Error. Please contact admins for further assistance.");},2000);
+							}
 						}
 					});
 				});
 				e.preventDefault();
 			});
-			$('#fakeLoader').css("display", "none");
-		});
 
-		function Add(){
-			$('#formC').append(
-				'<form method="post" action="#">'+
-				'<table class="table">'+
-				'<tr>'+
-				'<th>Name</th>'+
-				'<th>'+
-				'<input name="name" type="text" class="form-control" placeholder="Name..." />'+
-				'</th>'+
-				'</tr>'+
-				'<tr>'+
-				'<th>Briefy</th>'+
-				'<th>'+
-				'<input name="briefy" type="text" class="form-control" placeholder="Briefy..." />'+
-				'</th>'+
-				'</tr>'+
-				'<tr>'+
-				'<th>Category</th>'+
-				'<th>'+
-				'<select class="form-control" name="type">'+
-				'<option value="common">Common</option>'+
-				'<option value="tos">Term of Service</option>'+
-				'<option value="eula">End User License Agreement</option>'+
-				'<option value="dp">Data Privacy</option>'+
-				'<option value="copyright">Copyright</option>'+
-				'</select>'+
-				'</th>'+
-				'</tr>'+
-				'<tr>'+
-				'<th>Explanation</th>'+
-				'<th>'+
-				'<textarea name="explanation" rows="5" class="form-control" ></textarea>'+
-				'</th>'+
-				'</tr>'+
-				'</table>'+
-				'<input type="hidden" name="supplier_name" value="do" />'+
-				'</form>'
-				);
+$('button[name=getset]').on("click", function(e){
+				//console.log($('input[name=appname]').serialize());
+				$.ajax({
+					type: "POST",
+					url: "getdata.php",
+					cache: false,
+					data: $('input[name=appname]').serialize(),
+					success: function(data)
+					{
+						data = JSON.parse(data);
+						$.each(data, function(index, val){
+							// console.log(val['briefy']);
+							AddWithVal(val['name'], val['briefy'], val['category'], val['explanation']);
+						});
+					}
+				});
+				e.preventDefault();
+			});
+});
+
+function Add(){
+	$('#formC').append(
+		'<form method="post" action="#">'+
+		'<table class="table">'+
+		'<tr>'+
+		'<th>Name</th>'+
+		'<th>'+
+		'<input name="name" type="text" class="form-control" placeholder="Name..." />'+
+		'</th>'+
+		'</tr>'+
+		'<tr>'+
+		'<th>Briefy</th>'+
+		'<th>'+
+		'<input name="briefy" type="text" class="form-control" placeholder="Briefy..." />'+
+		'</th>'+
+		'</tr>'+
+		'<tr>'+
+		'<th>Category</th>'+
+		'<th>'+
+		'<select class="form-control" name="category">'+
+		'<option value="common">Common</option>'+
+		'<option value="tos">Term of Service</option>'+
+		'<option value="eula">End User License Agreement</option>'+
+		'<option value="dp">Data Privacy</option>'+
+		'<option value="copyright">Copyright</option>'+
+		'</select>'+
+		'</th>'+
+		'</tr>'+
+		'<tr>'+
+		'<th>Explanation</th>'+
+		'<th>'+
+		'<textarea name="explanation" rows="5" class="form-control" ></textarea>'+
+		'</th>'+
+		'</tr>'+
+		'</table>'+
+		'<input type="hidden" name="supplier_name" value="" />'+
+		'</form>'
+		);
 }
 
-		// function Submit(){
-		// 	$.ajax({
-		// 		type: "POST",
-		// 		url: "#",
-		// 		cache: false,
-		// 		success: function(data){
-		// 			if (data.errorMsg == "success") {
-		// 				window.location.href="/";
-		// 			} else {
-		// 				$.each(data.error, function(index, content) {
-		// 					alert(content);
-		// 				});
-		// 			}
-		// 		}
-		// 	});
-		// }
-	</script>
+function AddWithVal(name, briefy, category, explanation){
+	var htmlString = 
+		'<form method="post" action="#">'+
+		'<table class="table">'+
+		'<tr>'+
+		'<th>Name</th>'+
+		'<th>'+
+		'<input name="name" type="text" class="form-control" value="'+ name +'" />'+
+		'</th>'+
+		'</tr>'+
+		'<tr>'+
+		'<th>Briefy</th>'+
+		'<th>'+
+		'<input name="briefy" type="text" class="form-control" value="'+ briefy +'" />'+
+		'</th>'+
+		'</tr>'+
+		'<tr>'+
+		'<th>Category</th>'+
+		'<th>'+
+		'<select class="form-control" name="category">'+
+		'<option value="common"'; 
+		htmlString += (category=='common')? 'selected':'';
+		htmlString += '>Common</option>'+
+		'<option value="tos"'; 
+		htmlString += (category=='tos')? 'selected': ''; 
+		htmlString +='>Term of Service</option>'+
+		'<option value="eula"'; 
+		htmlString += (category=='eula')? 'selected': ''; 
+		htmlString +='>End User License Agreement</option>'+
+		'<option value="dp"'; 
+		htmlString += (category=='dp')? 'selected': ''; 
+		htmlString +='>Data Privacy</option>'+
+		'<option value="copyright"'; 
+		htmlString += (category=='copyright')? 'selected': ''; 
+		htmlString += '>Copyright</option>'+
+		'</select>'+
+		'</th>'+
+		'</tr>'+
+		'<tr>'+
+		'<th>Explanation</th>'+
+		'<th>'+
+		'<textarea name="explanation" rows="5" class="form-control" >'+ explanation +'</textarea>'+
+		'</th>'+
+		'</tr>'+
+		'</table>'+
+		'<input type="hidden" name="supplier_name" value="" />'+
+		'</form>';
+		$('#formC').append(htmlString);
+	}
+</script>
 </body>
 
 

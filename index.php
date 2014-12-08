@@ -4,10 +4,9 @@
 	<meta charset="UTF-8">
 	<title>Registration</title>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
 
 	<style>
 		.centering {
@@ -129,8 +128,57 @@
 						<div class="thumbnail" style="width:100%; height:350px;">
 							<div id="titles"><div id="titlecontent">
 
-							<p>We are constantly changing and improving our Services. We may add or remove functionalities or features of the Services at any time, and we may suspend or stop a Service altogether.
-We may modify the Agreement at any time. We’ll post any modifications to the AdSense Terms on this page and any modifications to the AdSense Program Policies or the Google Branding Guidelines on their respective pages.  Changes will not apply retroactively and generally will become effective 14 days after they are posted. However, changes addressing new functions for a Service or changes made for legal reasons will be effective immediately. If you don’t agree to any modified terms in the Agreement, you’ll have to stop using the affected Services.</p>
+								<article class="starwars">
+								  <audio preload="auto">
+								      <?php
+								        $data = array('It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire. During the battle, Rebel spies managed to steal secret plans to the Empire\'s ultimate weapon, the DEATH STAR, an armored space station with enough power to destroy an entire planet. Pursued by the Empire\'s sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plan that can save her people and restore freedom to the galaxy....');
+								        $data = trim(http_build_query($data));
+								        $data = str_replace("0=","",$data);
+								        $data = 'http://tts-api.com/tts.mp3?return_url=1&q='.$data;
+								        $data = file_get_contents($data);
+								      ?>
+								      <source src=<?php echo $data; ?> type="audio/mpeg">
+								  </audio>
+
+								  <section id="starttos" class="start">
+								  </section>
+
+								  <div class="animation">
+
+								  <section class="titles">
+								    <div spellcheck="false">  
+								      <p>
+								        It is a period of civil war.
+								        Rebel spaceships, striking
+								        from a hidden base, have won
+								        their first victory against
+								        the evil Galactic Empire.
+								      </p>
+
+								      <p>
+								        During the battle, Rebel
+								        spies managed to steal secret
+								        plans to the Empire's
+								        ultimate weapon, the DEATH
+								        STAR, an armored space
+								        station with enough power to
+								        destroy an entire planet.
+								      </p>
+
+								      <p>
+								        Pursued by the Empire's
+								        sinister agents, Princess
+								        Leia races home aboard her
+								        starship, custodian of the
+								        stolen plan that can save
+								        her people and restore
+								        freedom to the galaxy....
+								      </p>
+								      </div>
+								  </section>
+
+								  </div>
+								</article>
 
 							</div></div>
 						</div>
@@ -147,12 +195,19 @@ We may modify the Agreement at any time. We’ll post any modifications to the A
 
 	</form> <!-- /container -->
 </div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script src="js/index.js"></script>
 
 <script>
 	$('#tos').on('click',function(){
 		if($('#tos').prop('checked') === true)
 			$('#tos-content').modal('show');
 	});
+
+	$('#tos-content').on('shown.bs.modal', function (e) {
+	  $('.start').click();
+	})
 </script>
 </body>
 </html>
